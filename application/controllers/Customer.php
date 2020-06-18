@@ -5,6 +5,7 @@ class Customer extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->library('session');
 		$this->load->model('Customer_model');
 	}
 
@@ -26,7 +27,22 @@ class Customer extends CI_Controller {
 
 	public function get_customer_by_id()
 	{
-		$id_customer = 1;
+		//get customer by session email
+
+		$email = $this->session->email;
+
+		$data_customer = $this->Customer_model->get_customer_by_email($email);
+
+		foreach ($data_customer->result() as $key => $value) {
+			$value;
+		}
+
+		$json = json_encode($value);
+
+		$json = json_decode($json, true);
+
+
+		$id_customer = $json['id_customer'];
 		$data_customer = $this->Customer_model->get_customer_by_id($id_customer);
 
 		if ($data_customer->num_rows() > 0){
@@ -36,5 +52,23 @@ class Customer extends CI_Controller {
 		}
 
 		echo json_encode($data_output);
+	}
+
+	public function get_customer_by_email()
+	{
+		// $email = $this->session->userdata('email');
+
+		$email = "yonisaka@gmail.com";
+		$data_customer = $this->Customer_model->get_customer_by_email($email);
+
+		foreach ($data_customer->result() as $key => $value) {
+			$value;
+		}
+
+		$json = json_encode($value);
+
+		$json = json_decode($json, true);
+		echo $json['id_customer'];
+		
 	}
 }
