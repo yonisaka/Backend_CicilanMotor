@@ -18,4 +18,13 @@ class Customer_model extends CI_Model {
 		$this->db->where('id_customer', $id_customer);
 		return $this->db->get();
 	}
+
+	public function get_customer_by_email($email)
+	{
+		$this->db->select('id_customer');
+		$this->db->from('customer');
+		$this->db->where('email', $email);
+
+		return $this->db->get();
+	}
 }
