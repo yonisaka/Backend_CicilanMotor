@@ -1,7 +1,7 @@
 ### Langkah Membuat Fitur Projek
-1. membuat direktori FE_CicilanMotor
+1. membuat direktori BE_CicilanMotor
 2. git init
-3. git remote add origin https://github.com/yonisaka/Frontend_CicilanMotor.git
+3. git remote add origin https://github.com/yonisaka/Backend_CicilanMotor.git
 4. git pull origin dev
 5. git branch nama_feature
 6. git checkout nama_branch (fitur yg dibuat)
