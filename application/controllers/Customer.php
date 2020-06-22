@@ -44,9 +44,15 @@ class Customer extends CI_Controller {
 
 		$id_customer = $json['id_customer'];
 		$data_customer = $this->Customer_model->get_customer_by_id($id_customer);
+		$data_foto = $data_customer->row_array();
+		$foto_customer = '<img src="'.base_url().'foto_customer/'.$id_customer.'/'.$data_foto['foto'].'" alt="User Avatar" class="rounded-circle user-avatar-xxl">';
 
 		if ($data_customer->num_rows() > 0){
-			$data_output = array('sukses' => 'ya', 'detail' => $data_customer->row_array());
+			$data_output = array(
+				'sukses' => 'ya', 
+				'detail' => $data_customer->row_array(),
+				'foto' => $foto_customer
+			);
 		} else {
 			$data_output = array('sukses' => 'tidak');
 		}

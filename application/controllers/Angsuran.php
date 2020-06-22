@@ -16,6 +16,7 @@ class Angsuran extends CI_Controller {
 			'id_transaksi' => $this->input->post('id_transaksi'),
 			'kali_angsuran' => $this->input->post('kali_angsuran'),
 			'tanggal_angsuran' => $this->input->post('tanggal'),
+			'sisa_angsuran' => $this->input->post('sisa_angsuran'),
 			);
 
 		$this->Angsuran_model->insert_data($arr_input);
