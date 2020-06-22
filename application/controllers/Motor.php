@@ -30,20 +30,23 @@ class Motor extends CI_Controller {
 		</thead>';
 		foreach ($motor->result() as $key => $value) {
 		$konten .= '
+		<tbody>
 			<tr>
 				<td>'.$value->merek.'</td>
 				<td>'.$value->seri.'</td>
-				<td><img src="'.base_url().'foto/'.$value->id_motor.'/'.$value->foto_produk.'"
+				<td><img src="'.base_url().'foto/'.$value->id_motor.'/'.$value->foto.'"
 				width="50"></td>
 				<td>'.$value->jenis.'</td>
 				<td>'.$value->harga.'</td>
 				<td>'.$value->tahun_pembuatan.'</td>
 				<td>Read | <a href="#'.$value->id_motor.'" class="linkHapusMotor"> Hapus</a> | <a href="#'.$value->id_motor.'" class="linkEditMotor">Edit</a></td>
-			</tr>';
+			</tr>
+		</tbody>
+			';
 			}
 
 		$data_json = array(
-		'konten' => $konten,
+			'konten' => $konten,
 		);
 		echo json_encode($data_json);
 	}
@@ -189,7 +192,7 @@ class Motor extends CI_Controller {
 
 			if ($this->upload->do_upload('file')){
 				$data_motor = array(
-					'foto_produk' => $this->upload->data('file_name')
+					'foto' => $this->upload->data('file_name')
 				);
 
 				$this->Motor_model->update_data($id_motor,$data_motor);
