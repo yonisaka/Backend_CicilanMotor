@@ -65,8 +65,10 @@ class Transaksi extends CI_Controller {
 			$orderby = "nominal_angsuran";
 		}elseif($orderby == 2){
 			$orderby = "kali_angsuran";
-		}else{
-			$orderby = "total_pembelian";
+		}elseif($orderby == 3){
+			$orderby = "sisa_angsuran";
+		}else {
+			$orderby = "status";
 		}
 
 		$data_transaksi = $this->Transaksi_model->get_dt_transaksi_angsuran_by_id($id_customer, $limit, $offset, $orderby, $method, $search);
@@ -81,7 +83,8 @@ class Transaksi extends CI_Controller {
 			$row[] = $value->tanggal_angsuran;
 			$row[] = $value->nominal_angsuran;
 			$row[] = $value->kali_angsuran;
-			$row[] = $value->total_pembelian;
+			$row[] = $value->sisa_angsuran;
+			$row[] = $value->status;
 			
 			$data[] = $row;
 		}
