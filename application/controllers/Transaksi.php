@@ -9,6 +9,32 @@ class Transaksi extends CI_Controller {
 		$this->load->model('Customer_model');
 	}
 
+	public function create_action(){
+		$this->db->trans_start();
+
+		$id_motor = $this->input->post('id_motor');
+
+		$arr_input = array(
+			'id_customer' => $this->input->post('id_customer'),
+			'id_motor' => $this->input->post('id_motor'),
+			'jangka_waktu' => $this->input->post('kali_angsuran'),
+			'nominal_angsuran' => $this->input->post('perbulan'),
+			'total_pembelian' => $this->input->post('total_pembelian'),
+		);
+
+		$this->Transaksi_model->insert_data($arr_input);
+
+		if ($this->db->trans_status() === FALSE){
+			$this->db->trans_rollback();
+			$data_output = array('sukses' => 'tidak', 'pesan' => 'Gagal Simpan Data Motor');
+		} else {
+			$this->db->trans_commit();
+			$data_output = array('sukses' => 'ya', 'pesan' => 'Berhasi;; Simpan Data Motor');
+		}
+
+		echo json_encode($data_output);
+	}
+
 	public function get_transaksi_by_id()
 	{
 		$email = $this->session->userdata('email');
@@ -97,5 +123,21 @@ class Transaksi extends CI_Controller {
 		);
 
 		echo json_encode($data_json);
+	}
+
+	public function get_transaksi_by_id_customer()
+	{
+		$id_customer = $this->input->get('id_customer');
+		$data_detail = $this->Transaksi_model->get_transaksi_by_id_customer($id_customer);
+
+		if ($data_detail->num_rows() > 0) {
+			$data_output = array(
+				'sukses' => 'ya', 
+				'detail' => $data_detail->row_array());
+		}else{
+			$data_output = array('sukses' => 'tidak');
+		}
+
+		echo json_encode($data_output);
 	}
 }
