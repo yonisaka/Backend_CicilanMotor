@@ -62,9 +62,9 @@ class Customer extends CI_Controller {
 
 	public function get_customer_by_email()
 	{
-		// $email = $this->session->userdata('email');
+		$email = $this->session->userdata('email');
 
-		$email = "yonisaka@gmail.com";
+		// $email = "yonisaka@gmail.com";
 		$data_customer = $this->Customer_model->get_customer_by_email($email);
 
 		foreach ($data_customer->result() as $key => $value) {

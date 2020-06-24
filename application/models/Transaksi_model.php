@@ -34,4 +34,18 @@ class Transaksi_model extends CI_Model {
 
 		return $this->db->get();
 	}
+
+	public function insert_data($data)
+	{
+		$this->db->insert('transaksi', $data);
+	}
+
+	public function get_transaksi_by_id_customer($id_customer)
+	{
+		$this->db->select('*');
+		$this->db->from('transaksi');
+		$this->db->where('id_customer', $id_customer);
+
+		return $this->db->get();
+	}
 }
