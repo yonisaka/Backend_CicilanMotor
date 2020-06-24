@@ -15,7 +15,7 @@ class Motor extends CI_Controller {
 
 	public function data_motor()
 	{
-		$motor = $this->Motor_model->get_motor();
+		$data_motor = $this->Motor_model->get_motor();
 		$konten = 
 		'<thead>
 			<tr>
@@ -28,7 +28,7 @@ class Motor extends CI_Controller {
 				<th>Aksi</th>
 			</tr>
 		</thead>';
-		foreach ($motor->result() as $key => $value) {
+		foreach ($data_motor->result() as $key => $value) {
 		$konten .= '
 		<tbody>
 			<tr>
@@ -61,6 +61,7 @@ class Motor extends CI_Controller {
 			'merek' => $this->input->post('merek'),
 			'seri' => $this->input->post('seri'),
 			'jenis' => $this->input->post('jenis'),
+			'deskripsi' => $this->input->post('deskripsi'),
 			'stok' => $this->input->post('stok'),
 			'harga' => $this->input->post('harga'),
 			'tahun_pembuatan' => $this->input->post('tahun_pembuatan'),
@@ -95,6 +96,7 @@ class Motor extends CI_Controller {
 				'merek' => $this->input->post('merek'),
 				'seri' => $this->input->post('seri'),
 				'jenis' => $this->input->post('jenis'),
+				'deskripsi' => $this->input->post('deskripsi'),
 				'stok' => $this->input->post('stok'),
 				'harga' => $this->input->post('harga'),
 				'tahun_pembuatan' => $this->input->post('tahun_pembuatan'),

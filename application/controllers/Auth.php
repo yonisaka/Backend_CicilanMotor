@@ -40,8 +40,8 @@ class Auth extends CI_Controller {
 			'nama' => $this->input->post('nama'),
 			'email' => $this->input->post('email'),
 			'password' => md5($this->input->post('password')),
-			'no_ktp' => $this->input->post('ktp'),
-			'no_telepon' => $this->input->post('telp'),
+			'no_ktp' => $this->input->post('no_ktp'),
+			'no_telepon' => $this->input->post('no_telepon'),
 			'pekerjaan' => $this->input->post('pekerjaan'),
 			'alamat' => $this->input->post('alamat'),
 			// 'status' => $this->input->post('status')
