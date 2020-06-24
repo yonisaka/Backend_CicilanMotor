@@ -8,9 +8,41 @@ class Motor extends CI_Controller {
 		$this->load->model('Motor_model');
 	}
 
-	public function index()
+	public function index_motor()
 	{
-		echo 'asdsad';
+		$motor = $this->Motor_model->get_motor();
+
+		$data = array();
+		foreach ($motor->result() as $key => $value){
+			$row = array();
+			$row = '
+			<div class="col-3">
+	            <div class="product-thumbnail card-figure has-hoverable">
+	                <div class="product-img-head">
+	                    <div class="product-img">
+	                        <img src="'.base_url().'foto/'.$value->id_motor.'/'.$value->foto.'" alt="" class="img-fluid"></div>
+	                    <div class="ribbons"></div>
+	                    <div class="ribbons-text">Offer</div>
+	                </div>
+	                <div class="product-content">
+	                    <div class="product-content-head">
+	                        <h3 class="product-title font-weight-bold">'.$value->merek.' '.$value->seri.'</h3>
+	                        <div class="product-price">'.$value->harga.' </div>
+	                    </div>
+	                    <div class="product-btn">
+	                        <a href="#'.$value->id_motor.'" class="btn btn-primary btn-block linkDetailMotor">Detail</a>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+			';
+			$data[] = $row;
+ 		}
+
+		$data_json = array(
+			'motor' => $data,
+		);
+		echo json_encode($data_json);
 	}
 
 	public function data_motor()
@@ -83,7 +115,7 @@ class Motor extends CI_Controller {
 			}
 
 			echo json_encode($data_output);
-		}
+	}
 
 		public function update_action()
 		{
@@ -123,13 +155,16 @@ class Motor extends CI_Controller {
 			$data_detail = $this->Motor_model->get_motor_by_id($id_motor);
 
 			if ($data_detail->num_rows() > 0) {
-				$data_output = array('sukses' => 'ya', 'detail' => $data_detail->row_array());
+				$data_output = array(
+					'sukses' => 'ya', 
+					'detail' => $data_detail->row_array());
 			}else{
 				$data_output = array('sukses' => 'tidak');
 			}
 
 			echo json_encode($data_output);
 		}
+
 		public function delete_data()
 		{
 			$this->db->trans_start();
