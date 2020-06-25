@@ -84,7 +84,7 @@ class Auth extends CI_Controller {
 
 	private function upload_foto($id_customer, $files)
 	{
-		$gallerPath = realpath(APPPATH . '../foto_customer');
+		$gallerPath = realpath(APPPATH .'../foto_customer');
 		$path = $gallerPath.'/'.$id_customer;
 
 		if (!is_dir($path)) {

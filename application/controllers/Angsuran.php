@@ -8,6 +8,53 @@ class Angsuran extends CI_Controller {
 		$this->load->model('Angsuran_model');
 	}
 
+	public function data_angsuran() {
+		$limit = $this->input->get('length');
+		$offset = $this->input->get('start');
+		$orderby = $this->input->get('order[0][column]');
+		$method = $this->input->get('order[0][dir]');
+		$search = $this->input->get('search[value]');
+
+		if ($orderby == 0) {
+			$orderby = "id_transaksi";
+		}elseif($orderby == 1){
+			$orderby = "tanggal_angsuran";
+		}elseif($orderby == 2){
+			$orderby = "kali_angsuran";
+		}elseif($orderby == 3){
+			$orderby = "bukti_angsuran";
+		}else {
+			$orderby = "id_transaksi";
+		}
+
+		$data_angsuran = $this->Angsuran_model->get_all_angsuran($limit, $offset, $orderby, $method, $search);
+
+		$draw = (int)$this->input->get('draw');
+		$recordsTotal = $this->Angsuran_model->get_all_angsuran($limit, $offset, $orderby, $method, $search)->num_rows();
+		$recordsFiltered = $recordsTotal;
+		$data = array();
+
+		foreach ($data_angsuran->result() as $key => $value) {
+			$row = array();
+			$row[] = $value->id_transaksi;
+			$row[] = $value->tanggal_angsuran;
+			$row[] = $value->kali_angsuran;
+			$row[] = '<a href="'.base_url().'/bukti_angsuran/'.$value->id_angsuran.'/'.$value->bukti_angsuran.'"><img src="'.base_url().'/bukti_angsuran/'.$value->id_angsuran.'/'.$value->bukti_angsuran.'" width="50"></a>';
+			$row[] = '<a href="#'.$value->id_angsuran.'" class="linkKonfirmasiAngsuran">Konfirmasi</a>';
+			
+			$data[] = $row;
+		}
+
+		$data_json = array(
+			'draw' => $draw,
+			'recordsTotal' => $recordsTotal,
+			'recordsFiltered' => $recordsFiltered,
+			'data' => $data,
+		);
+
+		echo json_encode($data_json);
+	}
+
 	public function create_action()
 	{
 		$this->db->trans_start();

@@ -192,7 +192,6 @@ class Customer extends CI_Controller {
 	{
 		$email = $this->session->userdata('email');
 
-		// $email = "yonisaka@gmail.com";
 		$data_customer = $this->Customer_model->get_customer_by_email($email);
 
 		foreach ($data_customer->result() as $key => $value) {
@@ -202,7 +201,6 @@ class Customer extends CI_Controller {
 		$json = json_encode($value);
 
 		$json = json_decode($json, true);
-		echo $json['id_customer'];
-		
+		echo $json['id_customer'];	
 	}
 }

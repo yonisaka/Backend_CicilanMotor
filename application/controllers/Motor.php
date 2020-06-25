@@ -20,7 +20,7 @@ class Motor extends CI_Controller {
 	            <div class="product-thumbnail card-figure has-hoverable">
 	                <div class="product-img-head">
 	                    <div class="product-img">
-	                        <img src="'.base_url().'foto/'.$value->id_motor.'/'.$value->foto.'" alt="" class="img-fluid"></div>
+	                        <img src="'.base_url().'foto/'.$value->id_motor.'/'.$value->foto.'" alt="" style="max-height:180px;" class="img-fluid"></div>
 	                    <div class="ribbons"></div>
 	                    <div class="ribbons-text">Offer</div>
 	                </div>
@@ -103,19 +103,19 @@ class Motor extends CI_Controller {
 
 		$id_motor = $this->db->insert_id();
 
-			if ($_FILES != null) {
-				$this->upload_foto($id_motor, $_FILES);
-			}
+		if ($_FILES != null) {
+			$this->upload_foto($id_motor, $_FILES);
+		}
 
-			if ($this->db->trans_status() === FALSE){
-				$this->db->trans_rollback();
-				$data_output = array('sukses' => 'tidak', 'pesan' => 'Gagal Simpan Data Motor');
-			} else {
-				$this->db->trans_commit();
-				$data_output = array('sukses' => 'ya', 'pesan' => 'Berhasi;; Simpan Data Motor');
-			}
+		if ($this->db->trans_status() === FALSE){
+			$this->db->trans_rollback();
+			$data_output = array('sukses' => 'tidak', 'pesan' => 'Gagal Simpan Data Motor');
+		} else {
+			$this->db->trans_commit();
+			$data_output = array('sukses' => 'ya', 'pesan' => 'Berhasi;; Simpan Data Motor');
+		}
 
-			echo json_encode($data_output);
+		echo json_encode($data_output);
 	}
 
 		public function update_action()
@@ -213,6 +213,7 @@ class Motor extends CI_Controller {
 			if (!is_dir($path)) {
 				mkdir($path, 0777, TRUE);
 			}
+
 			$konfigurasi = array(
 				'allowed_types' => 'jpg|png|jpeg',
 				'upload_path' => $path,
